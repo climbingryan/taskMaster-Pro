@@ -183,17 +183,25 @@ $(".card .list-group").sortable({
   connectWith: $(".card .list-group"),
   scroll: false,
   tolerance: "pointer",
-  hepler: "clone",
+  helper: "clone",
   activate: function(event) {
+    $(".bottom-trash").addClass("bottom-trash-drag");
+    $(this).addClass("dropover");
     console.log("activate", this);
   },
   deactivate: function(event) {
+    $(".bottom-trash").removeClass("bottom-trash-drag");
+    $(this).removeClass("dropover")
     console.log("deactivate", this);
   },
   over: function(event) {
+    $(".bottom-trash").addClass("bottom-trash-active");
+    $(event.target).addClass("dropover-active");
     console.log("over", event.target);
   },
   out: function(event) {
+    $(".bottom-trash").removeClass("bottom-trash-active");
+    $(event.target).removeClass("dropover-active")
     console.log("out", event.target);
   },
   update: function(event) {
@@ -258,7 +266,7 @@ $("#task-form-modal").on("shown.bs.modal", function() {
 });
 
 // save button in modal was clicked
-$("#task-form-modal .btn-primary").click(function() {
+$("#task-form-modal .btn-save").click(function() {
   // get form values
   var taskText = $("#modalTaskDescription").val();
   var taskDate = $("#modalDueDate").val();
